@@ -1,16 +1,12 @@
-name: Node CI
-
-on: [push]
+name: Publishing to NPM
+on:
+  release:
+    types: [published]
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [8.x, 10.x, 12.x]
-
+    runs-on: macOS-latest
     steps:
     - uses: actions/checkout@v1
     - name: Use Node.js ${{ matrix.node-version }}
