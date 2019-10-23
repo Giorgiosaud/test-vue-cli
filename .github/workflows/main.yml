@@ -1,7 +1,6 @@
 name: Publishing Modyo Cli on NPM
 on:
-  release:
-    types: [published]
+  status
 jobs:
   release:
     name: Releasing to NPM Registry
