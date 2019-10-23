@@ -1,35 +1,36 @@
-name: Publishing to NPM
+name: Publishing Modyo Cli on NPM
 on:
   release:
     types: [published]
-
 jobs:
-  build:
-
+  release:
+    name: Releasing to NPM Registry
     runs-on: macOS-latest
-
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-        
-    - name: npm install global vue-cli and vue-cli-service
-      run: |
-            npm install -g @vue/cli vue-cli-service
-            
-    - name: alfo
-      env:
-        VUE_APP_MODYO_TOKEN: "{{secret.TOKEN}}"
-        VUE_APP_MODYO_BASE_URL: "{{secret.BASE_URL}}"
-        VUE_APP_MODYO_HOST: "{{secret.HOST}}"
-        VUE_APP_MODYO_NAME: "{{secret.NAME}}"
-    - name: npm install, build, and test
-      run: |
-        npm ci
-        npm run build --if-present
-        npm test --if-present
-    - name: push to modyo
-      run: npm run modyo-push
-        
+      - uses: actions/checkout@v1
+      - name: Versioning
+        run : |
+          echo $HOME
+          echo $GITHUB_WORKFLOW
+          echo $GITHUB_ACTION
+          echo $GITHUB_ACTOR
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_EVENT_NAME
+          echo $GITHUB_EVENT_PATH
+          echo $GITHUB_WORKSPACE
+          echo $GITHUB_SHA
+          echo $GITHUB_REF
+          echo $GITHUB_HEAD_REF
+          echo $GITHUB_BASE_REF
+
+#          git config user.email "operations@modyo.com"
+#          git config user.name "Modyo"
+
+#      - name: Authorizing
+#        env:
+#          NPM_KEY: ${{ secrets.NPM_KEY }}
+#        run: |
+#          echo "//registry.npmjs.org/:_authToken=$NPM_KEY" > ~/.npmrc
+#      - name: Publishing
+#        run: |
+#          npm publish
